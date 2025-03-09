@@ -3,16 +3,16 @@
 set -e
 
 echo "Welcomoe to the Arch Linux Installer!"
-echo "                created by Amit Kumar"
+echo -e "                created by Amit Kumar\n\n"
 
 # Sync and install necessary packages
 pacman -Sy archlinux-keyring --noconfirm
 
 read -s -p "Enter root password: " root_password
-
+echo
 read -p "Enter username: " username
 read -s -p "Enter password for user $username: " user_password
-
+echo
 read -p "Enter hostname: " hostname
 echo
 
@@ -32,12 +32,7 @@ echo "Entering chroot ##################################################"
 
 # Change root to the new system
 #arch-chroot /mnt /bin/bash -c "/post.sh"
-arch-chroot /mnt /bin/bash <<EOF
-    # Passing variables to post-install script
-    export root_password="$root_password"
-    export username="$username"
-    export user_password="$user_password"
-    /mnt/post.sh
-EOF
+arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password'"
+
 # Unmount all partitions
 umount -lR /mnt

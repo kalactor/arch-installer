@@ -1,5 +1,9 @@
 #!/bin/bash
 
+root_password="$1"
+username="$2"
+user_password="$3"
+
 # Set root password
 echo "root:$root_password" | chpasswd
 
