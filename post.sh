@@ -13,7 +13,12 @@ useradd -m -g users -G wheel,storage,video,audio -s /bin/bash $username
 echo "amit:$user_password" | chpasswd
 
 # Grant sudo permissions to amit
-echo '$username ALL=(ALL) ALL' >> /etc/sudoers
+echo "Editing the sudoers file."
+sed -i "/^# %wheel ALL=(ALL:ALL) ALL/c\%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
+if ! visudo -c; then
+    echo "Error: Invalid syntax in /etc/sudoers. Aborting!"
+    exit 1
+fi
 
 # setting automatic time upate
 timedatectl set-ntp true
