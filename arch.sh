@@ -32,7 +32,7 @@ echo "Entering chroot ##################################################"
 
 # Change root to the new system
 #arch-chroot /mnt /bin/bash -c "/post.sh"
-arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password'"
+arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password' '$hostname'"
 
 # Unmount all partitions
 umount -lR /mnt

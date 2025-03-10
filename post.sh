@@ -3,6 +3,7 @@
 root_password="$1"
 username="$2"
 user_password="$3"
+hostname="$4"
 
 # Set root password
 echo "root:$root_password" | chpasswd
