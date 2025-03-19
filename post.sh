@@ -8,9 +8,9 @@ hostname="$4"
 # Set root password
 echo "root:$root_password" | chpasswd
 
-# Add user amit and set password
+# Add user $username and set password
 useradd -m -g users -G wheel,storage,video,audio -s /bin/bash $username
-echo "amit:$user_password" | chpasswd
+echo "$username:$user_password" | chpasswd
 
 # Grant sudo permissions to amit
 echo "Editing the sudoers file."
@@ -28,15 +28,24 @@ ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
 hwclock --systohc
 
 # Configure locale
-echo "en_IN.UTF-8 UTF-8" >> /etc/locale.gen
+#echo "en_IN.UTF-8 UTF-8" >> /etc/locale.gen
+sed -i "/^#en_IN UTF-8/c\en_IN UTF-8" /etc/locale.gen
 locale-gen
-echo "LANG=en_IN.UTF-8" > /etc/locale.conf
+echo "LANG=en_IN" > /etc/locale.conf
 
 # Set hostname
-echo $hostname >> /etc/hostname
-echo "127.0.0.1    localhost" >> /etc/hosts
-echo "::1	   localhost" >> /etc/hosts
-echo "127.0.1.1    ${hostname}.localdomain   $hostname" >> /etc/hosts
+echo $hostname > /etc/hostname
+
+# echo "127.0.0.1    localhost" >> /etc/hosts
+# echo "::1	   localhost" >> /etc/hosts
+# echo "127.0.1.1    ${hostname}.localdomain   $hostname" >> /etc/hosts
+
+# Update /etc/hosts with necessary entries using a here document
+cat <<EOF >> /etc/hosts
+127.0.0.1    localhost
+::1          localhost
+127.0.1.1    ${hostname}.localdomain   $hostname
+EOF
 
 # Install and configure GRUB
 pacman -S --noconfirm grub efibootmgr dosfstools mtools
