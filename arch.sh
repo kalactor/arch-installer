@@ -35,7 +35,7 @@ echo
 cp post.sh /mnt
 
 # Install base system and necessary packages
-pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sudo git vim cmake make networkmanager dhcpcd cargo gcc
+pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sudo git vim cmake make networkmanager cargo gcc ntfs-3g
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -43,7 +43,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 echo "Entering chroot ##################################################"
 
 # Change root to the new system
-arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password' '$hostname'"
+#arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password' '$hostname'"
+
+arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password' '$hostname' && rm -f /post.sh"
 
 # Unmount all partitions
 umount -lR /mnt

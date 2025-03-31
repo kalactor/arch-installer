@@ -47,13 +47,15 @@ cat <<EOF >> /etc/hosts
 127.0.1.1    ${hostname}.localdomain   $hostname
 EOF
 
-# Install and configure GRUB
-pacman -S --noconfirm grub efibootmgr dosfstools mtools
+# Configure GRUB and dual boot
+pacman -S --noconfirm grub efibootmgr dosfstools mtools os-prober
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+
+if [ -f /etc/default/grub ]; then
+	sudo sed -i "/^#GRUB_DISABLE_OS_PROBER=false/c\GRUB_DISABLE_OS_PROBER=false" /etc/default/grub
+fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Enable NetworkManager
 systemctl enable NetworkManager
-
-systemctl start dhcpcd
-systemctl enable dhcpcd
