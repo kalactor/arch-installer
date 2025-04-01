@@ -33,6 +33,9 @@ sed -i "/^#en_IN UTF-8/c\en_IN UTF-8" /etc/locale.gen
 locale-gen
 echo "LANG=en_IN" > /etc/locale.conf
 
+# Set Keymap
+echo "KEYMAP=us" > /etc/vconsole.conf
+
 # Set hostname
 echo $hostname > /etc/hostname
 
