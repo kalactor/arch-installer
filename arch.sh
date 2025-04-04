@@ -35,7 +35,7 @@ echo
 cp post.sh /mnt
 
 # Install base system and necessary packages
-pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sudo git vim cmake make networkmanager cargo gcc ntfs-3g
+pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sudo git vim cmake networkmanager ntfs-3g
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
