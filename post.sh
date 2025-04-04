@@ -31,7 +31,7 @@ hwclock --systohc
 #echo "en_IN.UTF-8 UTF-8" >> /etc/locale.gen
 sed -i "/^#en_IN UTF-8/c\en_IN UTF-8" /etc/locale.gen
 locale-gen
-echo "LANG=en_IN" > /etc/locale.conf
+echo "LANG=en_IN.UTF-8" > /etc/locale.conf
 
 # Set Keymap
 echo "KEYMAP=us" > /etc/vconsole.conf
