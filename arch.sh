@@ -40,7 +40,7 @@ pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sud
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-echo "Entering chroot ##################################################"
+echo -e "${YELLOW}Entering chroot ##################################################${NC}"
 
 # Change root to the new system
 #arch-chroot /mnt /bin/bash -c "/post.sh '$root_password' '$username' '$user_password' '$hostname'"

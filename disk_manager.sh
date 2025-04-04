@@ -1,7 +1,13 @@
 #!/bin/bash
 
+# Define color variables
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+BOLD_WHITE='\033[1;37m'
+NC='\033[0m'  # No Color
+
 # List available disks with sizes
-echo "Available disks:"
+echo -e "${YELLOW}Available disks:${NC}"
 declare -a disks
 declare -a sizes
 i=1
@@ -40,15 +46,15 @@ fi
 
 # Validate disk selection
 if [ -z "${disks[$disk_num]}" ]; then
-    echo "Invalid disk selection. Exiting."
+    echo -e "${RED}Invalid disk selection. Exiting.${NC}"
     exit 1
 fi
 
 selected_disk="/dev/${disks[$disk_num]}"
-echo "You have selected $selected_disk of size ${sizes[$disk_num]}."
+echo -e "${YELLOW}You have selected $selected_disk of size ${sizes[$disk_num]}.${NC}"
 
 # Warning before proceeding
-echo "WARNING: ALL DATA on $selected_disk will be erased."
+echo -e "${RED}WARNING: ALL DATA on $selected_disk will be erased.${NC}"
 read -p "Are you sure you want to proceed? (y/N): " confirm
 if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
     echo "Operation cancelled."
@@ -88,7 +94,7 @@ mkfs.fat -F32 "$part1"      # Format EFI partition as FAT32
 mkswap "$part2"             # Prepare swap partition
 mkfs.ext4 "$part3"          # Format Linux filesystem partition as ext4
 
-echo "Partitioning and formatting complete on $selected_disk."
+echo -e "${GREEN}Partitioning and formatting complete on $selected_disk.${NC}"
 
 # Mount partitions
 mount $part3 /mnt
