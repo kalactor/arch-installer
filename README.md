@@ -22,11 +22,7 @@ Before running the script, ensure:
    git clone https://github.com/kalactor/arch-installer
    cd arch-installer
    ```
-2. Make the all scripts executable:
-   ```sh
-   chmod +x *.sh
-   ```
-3. Run the script:
+2. Run the script:
    ```sh
    ./arch.sh
    ```

@@ -36,8 +36,17 @@ main() {
     # Copy post install script
     cp post.sh /mnt
 
+    # determine cpu (intel/amd)
+    vendor=$(awk -F': ' '/vendor_id/ {print $2; exit}' /proc/cpuinfo)
+
+    case "$vendor" in
+        GenuineIntel) microcode_pkg=intel-ucode ;;
+        AuthenticAMD)   =amd-ucode ;;
+        *) microcode_pkg=intel-ucode ;;
+    esac
+
     # Install base system and necessary packages
-    pacstrap /mnt base base-devel linux linux-headers linux-firmware intel-ucode sudo git vim cmake networkmanager ntfs-3g
+    pacstrap /mnt base base-devel linux linux-headers linux-firmware $microcode_pkg sudo git vim cmake networkmanager ntfs-3g
 
     # Generate fstab
     genfstab -U /mnt >> /mnt/etc/fstab
