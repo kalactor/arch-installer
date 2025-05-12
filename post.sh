@@ -39,10 +39,6 @@ echo "KEYMAP=us" > /etc/vconsole.conf
 # Set hostname
 echo $hostname > /etc/hostname
 
-# echo "127.0.0.1    localhost" >> /etc/hosts
-# echo "::1	   localhost" >> /etc/hosts
-# echo "127.0.1.1    ${hostname}.localdomain   $hostname" >> /etc/hosts
-
 # Update /etc/hosts with necessary entries using a here document
 cat <<EOF >> /etc/hosts
 127.0.0.1    localhost
