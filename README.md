@@ -17,13 +17,10 @@ Before running the script, ensure:
 - The disk you want to install Arch Linux on is identified with `lsblk` etc. (e.g., `/dev/sda`)
 
 ## Installation
-1. Clone the repository:
+
    ```sh
    git clone https://github.com/kalactor/arch-installer
    cd arch-installer
-   ```
-2. Run the script:
-   ```sh
    ./arch.sh
    ```
 
